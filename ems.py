@@ -1,5 +1,5 @@
 import sqlite3
-from employee import Employee
+from staff import Employee
 from datetime import datetime
 import hashlib
 
@@ -30,11 +30,7 @@ def add_employee(employee, connection):
         cursor.execute('''
             INSERT INTO employees (id, first_name, last_name, salary, hire_date, tenure)
             VALUES (?, ?, ?, ?, ?, ?)
-        ''', (create_id(employee), employee.firstName, employee.lastName, employee.salary, employee.hire_date, tenure))
-
-    connection.commit()
-
-    
+        ''', (create_id(employee), employee.firstName, employee.lastName, employee.salary, employee.hire_date, tenure))     
 
 def print_all_employees(connection):
     cursor = connection.cursor()
