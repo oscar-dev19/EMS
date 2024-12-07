@@ -24,13 +24,11 @@ def add_employee(employee, connection):
     )
     ''')
 
-    tenure = datetime.now().year - employee.hire_date.year
-
     with connection:  # Automatically commits the transaction
         cursor.execute('''
             INSERT INTO employees (id, first_name, last_name, salary, hire_date, tenure)
             VALUES (?, ?, ?, ?, ?, ?)
-        ''', (create_id(employee), employee.firstName, employee.lastName, employee.salary, employee.hire_date, tenure))     
+        ''', (create_id(employee), employee.firstName, employee.lastName, employee.salary, employee.hire_date, employee.tenure))     
 
 def print_all_employees(connection):
     cursor = connection.cursor()
@@ -43,32 +41,40 @@ def print_all_employees(connection):
 
     print("\n=== Employee Database ===")
     for employee in employees:
-        id, first_name, last_name, salary, hire_date, tenure = employee
- 
-        print(f"ID: {id[:8]}...")  # Display first 8 characters of the ID
-        print(f"Name: {first_name} {last_name}")
-        print(f"Salary: ${salary:.2f}")
-        print(f"Hire Date: {hire_date.split()[0]}")  # Only display the date part
-        print(f"Tenure: {tenure} years")
+        #unpack data
+        emp_id, firstName, lastName, salary, hireDate, tenure = employee
+        employee = Employee(firstName=firstName, lastName=lastName, salary=salary, hire_date=hireDate)
+
+        print(employee)
         print("===" * 7)
 
     print(f"Total Employees: {len(employees)}")
 
 def delete_employee(connection, partial_id):
     cursor = connection.cursor()
+    #get employee details first.
+    
     cursor.execute('''
     DELETE FROM employees
     WHERE id LIKE ?
     ''', (partial_id + '%',))
+
+    deleted_employee = cursor.fetchone()
     
     if cursor.rowcount == 0:
         print(f"No employee found with ID starting with {partial_id}")
     else:
+
         print(f"Employee with ID starting with {partial_id} has been deleted")
     
     connection.commit()
 
 # Employee operations
+def create_id(employee):
+    # Using SHA256 to generate a stable hash for employee IDs
+    full_name = employee.firstName + employee.lastName
+    return hashlib.sha256(full_name.encode()).hexdigest()
+
 def create_employee():
     print("Creating New Employee:")
     f_name = input("Enter New Employee's first Name: ")
@@ -82,10 +88,6 @@ def create_employee():
 
     return newEmp
 
-def create_id(employee):
-    # Using SHA256 to generate a stable hash for employee IDs
-    full_name = employee.firstName + employee.lastName
-    return hashlib.sha256(full_name.encode()).hexdigest()
 
 # User interface operations
 def print_prompt():
