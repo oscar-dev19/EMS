@@ -50,7 +50,7 @@ def print_all_employees(connection):
         print(f"Salary: ${salary:.2f}")
         print(f"Hire Date: {hire_date.split()[0]}")  # Only display the date part
         print(f"Tenure: {tenure} years")
-        print("-" * 30)
+        print("===" * 7)
 
     print(f"Total Employees: {len(employees)}")
 
