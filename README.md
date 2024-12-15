@@ -12,9 +12,9 @@ Modular Design: Clean and extensible Python codebase for easy customization and 
 Data Validation: Implements rigorous checks to ensure data consistency and prevent input errors.
 User-Friendly CLI: Intuitive command-line prompts and clear error messaging to enhance usability.
 ## Technology Stack
-Programming Language: Python
-Database: SQLite
-CLI Framework: Custom-built for flexibility and simplicity
+- Programming Language: Python
+- Database: SQLite
+- CLI Framework: Custom-built for flexibility and simplicity
 ## Use Cases
 Manage employee data for small to medium-sized organizations.
 Educational tool for learning database integration and Python scripting.
