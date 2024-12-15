@@ -19,3 +19,7 @@ User-Friendly CLI: Intuitive command-line prompts and clear error messaging to e
 Manage employee data for small to medium-sized organizations.
 Educational tool for learning database integration and Python scripting.
 Prototype for larger-scale enterprise management systems.
+
+## Upcoming Features
+- Web based frontend
+- user creation and authentication.
